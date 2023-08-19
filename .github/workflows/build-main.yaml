@@ -4,9 +4,6 @@ env:
   CONTAINER: "prom-status"
   REPO: "public"
 
-  ## VARS you won't have to change
-  AR: "europe-west2-docker.pkg.dev/breadnet-container-store"
-
 on:
   push:
     branches:
@@ -62,7 +59,7 @@ jobs:
         run: echo ref=$(echo ${GITHUB_REF_NAME} | cut -f2 -d'/') >> $GITHUB_OUTPUT
 
       - id: output
-        run: echo image=${{ env.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:${{steps.bnml.outputs.ref}}-${{steps.sha.outputs.sha}} >> $GITHUB_OUTPUT
+        run: echo image=${{ vars.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:${{steps.bnml.outputs.ref}}-${{steps.sha.outputs.sha}} >> $GITHUB_OUTPUT
 
       - name: Build and Push image
         uses: docker/build-push-action@v4
@@ -71,10 +68,10 @@ jobs:
           context: container
           file: Dockerfile
           tags: |
-            ${{ env.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:${{steps.sha.outputs.sha}}
-            ${{ env.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:${{steps.bnml.outputs.ref}}
-            ${{ env.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:${{steps.bnml.outputs.ref}}-${{steps.sha.outputs.sha}}
-            ${{ env.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:latest
+            ${{ vars.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:${{steps.sha.outputs.sha}}
+            ${{ vars.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:${{steps.bnml.outputs.ref}}
+            ${{ vars.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:${{steps.bnml.outputs.ref}}-${{steps.sha.outputs.sha}}
+            ${{ vars.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:latest
             ghcr.io/userbradley/${{ env.CONTAINER}}:${{steps.sha.outputs.sha}}
             ghcr.io/userbradley/${{ env.CONTAINER}}:${{steps.bnml.outputs.ref}}
             ghcr.io/userbradley/${{ env.CONTAINER}}:${{steps.bnml.outputs.ref}}-${{steps.sha.outputs.sha}}
