@@ -10,7 +10,7 @@ on:
       - main
     paths:
       - src/**
-      - .github/workflows/docker-build-main.yml
+      - .github/workflows/build-main.yaml
       - Dockerfile
 
 jobs:
