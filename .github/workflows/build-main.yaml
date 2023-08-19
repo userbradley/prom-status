@@ -65,7 +65,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          context: container
           file: Dockerfile
           tags: |
             ${{ vars.AR }}/${{ env.REPO }}/${{ env.CONTAINER}}:${{steps.sha.outputs.sha}}
