@@ -98,6 +98,7 @@ func checkEndpoint(endpoint *EndpointCheck, stopChan <-chan struct{}) {
 			if err != nil {
 				fmt.Printf("Error checking %s: %v\n", endpoint.Name, err)
 				statusGauge.WithLabelValues(endpoint.Name).Set(0)
+				latencyGauge.WithLabelValues(endpoint.Name).Set(0) // Set latency to 0 on error
 			} else {
 				resp.Body.Close()
 				fmt.Printf("%s: Latency: %dms\n", endpoint.Name, latency)
