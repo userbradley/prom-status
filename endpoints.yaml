@@ -1,0 +1,6 @@
+checks:
+  - name: breadnet
+    url: https://breadnet.co.uk
+    frequency: 1s
+  - name: google
+    url: https://google.com
